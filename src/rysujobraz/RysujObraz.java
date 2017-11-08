@@ -22,8 +22,16 @@ public class RysujObraz {
     public static void main(String[] args) {
         String path = "C:\\Users\\student\\Desktop\\";
         BufferedImage img = new BufferedImage(100, 100, TYPE_INT_RGB);
-
-        img = line_v2(100, 100, 35, 15, img);
+        
+        Line line1 = new Line(new Point(10, 10), new Point(70, 20));
+        Line line2 = new Line(new Point(70, 20), new Point(0, 80));
+        Line line3 = new Line(new Point(10, 10), new Point(0, 80));
+        
+        img = line1.draw(img);
+        img = line2.draw(img);
+        img = line3.draw(img);
+        
+//        img = drawTriangle(img, a, b, c);
         img = flip_v(img);
 
         File outputFile = new File(path + "image.jpg");
@@ -32,6 +40,30 @@ public class RysujObraz {
         } catch (IOException ex) {
             Logger.getLogger(RysujObraz.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static BufferedImage drawTriangle(BufferedImage img, Point a, Point b, Point c) {
+        
+        
+        img = fillTriangle(img, a, b, c);
+        
+        return img;
+    }
+    
+    public static BufferedImage fillTriangle(BufferedImage img, Point a, Point b, Point c) {
+        for (int y = a.getY(); y < b.getY(); y++) {
+            int x = a.getX();
+            // 0xffffffff = -1
+            // czarny = -16777216
+            int j = 0;
+            while(img.getRGB(x, y) != -1 || j == 0) {
+                img.setRGB(x, y, 0xffffffff);
+                x++;
+                j++;
+            }
+        }
+        
+        return img;
     }
 
     public static BufferedImage flip_v(BufferedImage img) {
@@ -76,17 +108,4 @@ public class RysujObraz {
         }
         return img;
     }
-
-//    public static BufferedImage line_v3(int x0, int y0, int x1, int y1, BufferedImage img) {
-//        double err = 0.0;
-//        double derr = Math.tan(err);
-//        for (int x = x0; x <= x1; x++) {
-//            err += derr;
-//            if (err > 0.5) {
-//                y += 1;
-//                err -= 1;
-//            }
-//        }
-//        return img;
-//    }
 }
