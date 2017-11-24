@@ -43,7 +43,6 @@ public class Box {
 				this.b = new Point(b.getX() + 2, b.getY() - 2);
 				this.c = new Point(c.getX() + 2, c.getY() + 2);
 				this.d = new Point(d.getX() - 2, d.getY() + 2);
-				System.out.println("enlarge");
 			}
 		}
 	}

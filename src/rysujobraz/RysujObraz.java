@@ -5,13 +5,8 @@
  */
 package rysujobraz;
 
-import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,36 +15,18 @@ import javax.imageio.ImageIO;
 public class RysujObraz {
 
     public static void main(String[] args) {
-        //String path = "C:\\Users\\student\\Desktop\\";
-    	 String path = "C:\\Users\\Wojtek\\Desktop\\";
-        BufferedImage img = new BufferedImage(100, 100, TYPE_INT_RGB);
-        
+        ImageCreator imageCreator = new ImageCreator(300, 300);
         Triangle triangle = new Triangle(new Point(10, 90), new Point(10, 30), new Point(95, 95));
-        img = triangle.draw(img);
-        //img = triangle.fill(img);
-//        Line line = new Line(new Point(50, 50), new Point(50, 80));
-//        line.draw(img);
-        img = flip_v(img);
-
-        File outputFile = new File(path + "image.jpg");
-        try {
-            ImageIO.write(img, "jpg", outputFile);
-        } catch (IOException ex) {
-            Logger.getLogger(RysujObraz.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static BufferedImage flip_v(BufferedImage img) {
-        int width = img.getWidth();
-        int height = img.getHeight();
-        BufferedImage newImg = new BufferedImage(width, height, TYPE_INT_RGB);
-        for (int x = 0; x < width; x++) {
-            int k = height - 1;
-            for (int y = 0; y < height; y++, k--) {
-                int rgb = img.getRGB(x, y);
-                newImg.setRGB(x, k, rgb);
-            }
-        }
-        return newImg;
+        //imageCreator.drawTriangle(triangle);
+        //imageCreator.drawTriangleFilled(triangle);
+        ObjScanner scanner = new ObjScanner();
+        List<Vertex> vertexList = new ArrayList<>();
+		try {
+			vertexList = scanner.readVertex("C:\\Users\\Wojtek\\Desktop\\deer.obj");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+        imageCreator.drawDeerPoints(vertexList);
     }
 }

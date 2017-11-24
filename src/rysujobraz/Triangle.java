@@ -1,7 +1,6 @@
 package rysujobraz;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 public class Triangle {
 	
@@ -36,21 +35,21 @@ public class Triangle {
 	}
 	
 	public BufferedImage draw(BufferedImage img) {
-//		img = ab.draw(img);
-//		img = bc.draw(img);
-//		img = ca.draw(img);
-//		img = box.draw(img);
-		img = fill(img);
-		
+		img = ab.draw(img);
+		img = bc.draw(img);
+		img = ca.draw(img);
 		return img;
 	}
 	
-	// FILLLLLLLL
-	public BufferedImage fill(BufferedImage img) {
-		System.out.println(box.toString());
+	public BufferedImage drawFilled(BufferedImage img) {
+//		img = box.draw(img);
+		img = fill(img);
+		return img;
+	}
+	
+	private BufferedImage fill(BufferedImage img) {
 		for (int i = box.getA().getY(); i < box.getC().getY(); i++) {
 			for (int j = box.getA().getX(); j < box.getB().getX(); j++) {
-				System.out.println(i + " " + j);
 				double aplha = barycentricAplha(j, i)/(double)barycentricAplha(a.getX(), a.getY());
 				double beta = barycentricBeta(j, i)/(double)barycentricBeta(a.getX(), a.getY());
 				double gamma = barycentricGamma(j, i)/(double)barycentricGamma(a.getX(), a.getY());
