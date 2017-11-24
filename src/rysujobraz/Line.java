@@ -28,7 +28,7 @@ public class Line {
         return points;
     }
 
-    public void setPoint(Point point) {
+    private void setPoint(Point point) {
         this.points.add(point);
     }
 
@@ -36,37 +36,191 @@ public class Line {
         return start;
     }
 
-    public void setStart(Point start) {
-        this.start = start;
-    }
-
     public Point getEnd() {
         return end;
-    }
-
-    public void setEnd(Point end) {
-        this.end = end;
     }
     
     public BufferedImage draw(BufferedImage img) {
         int diffX = start.getX() - end.getX();
         int diffY = start.getY() - end.getY();
-        if (diffY > diffX) {
-            for (int x = start.getX(); x <= end.getX(); x++) {
-                double t = (x - start.getX()) / (double) (end.getX() - start.getX());
-                int y = (int) Math.round((start.getY() + (end.getY() - start.getY()) * t));
-                img.setRGB(x, y, 0xffffffff);
-                setPoint(new Point(x, y));
-            }
+        
+        if (diffX >= 0) {
+        	if (diffY >= 0) {
+        		if (Math.abs(diffX) > Math.abs(diffY))
+        			drawLeftDownX(img);
+        		else
+        			drawLeftDownY(img);
+        	} else {
+        		if (Math.abs(diffX) > Math.abs(diffY))
+        			drawLeftUpX(img);
+        		else
+        			drawLeftUpY(img);
+        	}
         } else {
-            for (int y = start.getY(); y <= end.getY(); y++) {
-                double t = (y - start.getY()) / (double) (end.getY() - start.getY());
-                int x = (int) Math.round((start.getX() + (end.getY() - start.getX()) * t));
-                img.setRGB(x, y, 0xffffffff);
-                setPoint(new Point(x, y));
-            }
+        	if (diffY >= 0) {
+        		if (Math.abs(diffX) > Math.abs(diffY))
+        			drawRightDownX(img);
+        		else
+        			drawRightDownY(img);
+        	} else {
+        		if (Math.abs(diffX) > Math.abs(diffY))
+        			drawRightUpX(img);
+        		else
+        			drawRightUpY(img);
+        	}
         }
+        
         return img;
     }
+    
+    public BufferedImage drawRightUpX(BufferedImage img) {
+    	int y = start.getY();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffY/(double)diffX;
+    	for (int x = start.getX(); x <= end.getX(); x++) {
+    		sumErr += err;
+    		if (sumErr > 0.5) {
+    			sumErr -= 1.0;
+    			y++;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawRightUpY(BufferedImage img) {
+    	int x = start.getX();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffX/(double)diffY;
+    	for (int y = start.getY(); y <= end.getY(); y++) {
+    		sumErr += err;
+    		if (sumErr > 0.5) {
+    			sumErr -= 1.0;
+    			x++;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawRightDownX(BufferedImage img) {
+    	int y = start.getY();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffY/(double)diffX;
+    	for (int x = start.getX(); x <= end.getX(); x++) {
+    		sumErr += err;
+    		if (sumErr < 0.5) {
+    			sumErr += 1.0;
+    			y--;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawRightDownY(BufferedImage img) {
+    	int x = start.getX();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffX/(double)diffY;
+    	for (int y = start.getY(); y >= end.getY(); y--) {
+    		sumErr += err;
+    		if (sumErr < 0.5) {
+    			sumErr += 1.0;
+    			x++;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawLeftDownY(BufferedImage img) {
+    	int x = start.getX();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffX/(double)diffY;
+    	for (int y = start.getY(); y >= end.getY(); y--) {
+    		sumErr += err;
+    		if (sumErr > 0.5) {
+    			sumErr -= 1.0;
+    			x--;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawLeftDownX(BufferedImage img) {
+    	int y = start.getY();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffY/(double)diffX;
+    	for (int x = start.getX(); x >= end.getX(); x--) {
+    		sumErr += err;
+    		if (sumErr > 0.5) {
+    			sumErr -= 1.0;
+    			y--;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawLeftUpX(BufferedImage img) {
+    	int y = start.getY();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffY/(double)diffX;
+    	for (int x = start.getX(); x >= end.getX(); x--) {
+    		sumErr += err;
+    		if (sumErr < 0.5) {
+    			sumErr += 1.0;
+    			y++;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+    
+    public BufferedImage drawLeftUpY(BufferedImage img) {
+    	int x = start.getX();
+    	int diffX = end.getX() - start.getX();
+    	int diffY = end.getY() - start.getY();
+    	double sumErr = 0.0;
+    	double err = diffX/(double)diffY;
+    	for (int y = start.getY(); y <= end.getY(); y++) {
+    		sumErr += err;
+    		if (sumErr < 0.5) {
+    			sumErr += 1.0;
+    			x--;
+    		}
+    		img.setRGB(x, y, 0xffffffff);
+    		setPoint(new Point(x, y));
+    	}
+    	return img;
+    }
+
+	@Override
+	public String toString() {
+		return "Line [start=" + start + ", end=" + end + ", points=" + points + "]";
+	}
+    
     
 }

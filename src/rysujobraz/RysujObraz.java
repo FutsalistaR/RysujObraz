@@ -20,18 +20,15 @@ import javax.imageio.ImageIO;
 public class RysujObraz {
 
     public static void main(String[] args) {
-        String path = "C:\\Users\\student\\Desktop\\";
+        //String path = "C:\\Users\\student\\Desktop\\";
+    	 String path = "C:\\Users\\Wojtek\\Desktop\\";
         BufferedImage img = new BufferedImage(100, 100, TYPE_INT_RGB);
         
-        Line line1 = new Line(new Point(10, 10), new Point(70, 20));
-        Line line2 = new Line(new Point(70, 20), new Point(0, 80));
-        Line line3 = new Line(new Point(10, 10), new Point(0, 80));
-        
-        img = line1.draw(img);
-        img = line2.draw(img);
-        img = line3.draw(img);
-        
-//        img = drawTriangle(img, a, b, c);
+        Triangle triangle = new Triangle(new Point(10, 90), new Point(10, 30), new Point(95, 95));
+        img = triangle.draw(img);
+        //img = triangle.fill(img);
+//        Line line = new Line(new Point(50, 50), new Point(50, 80));
+//        line.draw(img);
         img = flip_v(img);
 
         File outputFile = new File(path + "image.jpg");
@@ -40,30 +37,6 @@ public class RysujObraz {
         } catch (IOException ex) {
             Logger.getLogger(RysujObraz.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static BufferedImage drawTriangle(BufferedImage img, Point a, Point b, Point c) {
-        
-        
-        img = fillTriangle(img, a, b, c);
-        
-        return img;
-    }
-    
-    public static BufferedImage fillTriangle(BufferedImage img, Point a, Point b, Point c) {
-        for (int y = a.getY(); y < b.getY(); y++) {
-            int x = a.getX();
-            // 0xffffffff = -1
-            // czarny = -16777216
-            int j = 0;
-            while(img.getRGB(x, y) != -1 || j == 0) {
-                img.setRGB(x, y, 0xffffffff);
-                x++;
-                j++;
-            }
-        }
-        
-        return img;
     }
 
     public static BufferedImage flip_v(BufferedImage img) {
@@ -78,34 +51,5 @@ public class RysujObraz {
             }
         }
         return newImg;
-    }
-
-    public static BufferedImage line_v1(int x0, int y0, int x1, int y1, BufferedImage img) {
-        int x, y;
-        for (double t = 0; t <= 1; t += 0.01) {
-            x = (int) Math.round(x0 + (x1 - x0) * t);
-            y = (int) Math.round(y0 + (y1 - y0) * t);
-            img.setRGB(x, y, 0xffffffff);
-        }
-        return img;
-    }
-
-    public static BufferedImage line_v2(int x0, int y0, int x1, int y1, BufferedImage img) {
-        int diffX = x0 - x1;
-        int diffY = y0 - y1;
-        if (diffY > diffX) {
-            for (int x = x0; x <= x1; x++) {
-                double t = (x - x0) / (double) (x1 - x0);
-                int y = (int) Math.round((y0 + (y1 - y0) * t));
-                img.setRGB(x, y, 0xffffffff);
-            }
-        } else {
-            for (int y = y0; y <= y1; y++) {
-                double t = (y - y0) / (double) (y1 - y0);
-                int x = (int) Math.round((x0 + (x1 - x0) * t));
-                img.setRGB(x, y, 0xffffffff);
-            }
-        }
-        return img;
     }
 }
