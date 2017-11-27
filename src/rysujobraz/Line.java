@@ -211,6 +211,8 @@ public class Line {
     			sumErr += 1.0;
     			x--;
     		}
+    		if (x < 0) x = 0;
+    		//System.out.println(x + " " + y);
     		img.setRGB(x, y, 0xffffffff);
     		setPoint(new Point(x, y));
     	}

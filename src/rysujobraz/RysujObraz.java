@@ -27,6 +27,14 @@ public class RysujObraz {
 			e.printStackTrace();
 		}
 		
-        imageCreator.drawDeerPoints(vertexList);
+		List<F> fList = new ArrayList<>();
+		try {
+			fList = scanner.readF("C:\\Users\\Wojtek\\Desktop\\deer.obj");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+        //imageCreator.drawDeerPoints(vertexList);
+		imageCreator.drawDeerTriangles(vertexList, fList);
     }
 }

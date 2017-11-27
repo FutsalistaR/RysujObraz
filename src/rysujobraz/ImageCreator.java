@@ -30,6 +30,18 @@ public class ImageCreator {
         save(PATH, DEER_FILE_NAME);
     }
     
+    public void drawDeerTriangles(List<Vertex> vertex, List<F> fList) {
+    	for (int i = 0; i < 100; i++) {
+    		Point a = new Point((int)Math.round(vertex.get(fList.get(i).getA()).getX()*100.0) + 100, (int)Math.round(vertex.get(fList.get(i).getB()).getY()*100.00) + 100);
+    		Point b = new Point((int)Math.round(vertex.get(fList.get(i).getB()).getX()*100.00) + 100, (int)Math.round(vertex.get(fList.get(i).getC()).getY()*100.00) + 100);
+    		Point c = new Point((int)Math.round(vertex.get(fList.get(i).getC()).getX()*100.00) + 100, (int)Math.round(vertex.get(fList.get(i).getA()).getY()*100.00) + 100);
+    		Triangle triangle = new Triangle(a, b, c);
+    		System.out.println(fList.get(i).getA() + " " + fList.get(i).getB() + " " + fList.get(i).getC());
+    		System.out.println(triangle.toString());
+    		drawTriangle(triangle);
+    	}
+    }
+    
     public void drawTriangle(Triangle triangle) {
     	triangle.draw(img);
     	flip_v();
