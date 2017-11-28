@@ -56,8 +56,8 @@ public class Triangle {
 				
 				if (aplha > 0 && beta > 0 && gamma > 0)
 					img.setRGB(j, i, 0xffffffff);
-				else
-					img.setRGB(j, i, 0x00ff00);
+//				else
+//					img.setRGB(j, i, 0x00ff00);
 			}
 		}
 		return img;

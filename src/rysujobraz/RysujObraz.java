@@ -16,9 +16,6 @@ public class RysujObraz {
 
     public static void main(String[] args) {
         ImageCreator imageCreator = new ImageCreator(300, 300);
-        Triangle triangle = new Triangle(new Point(10, 90), new Point(10, 30), new Point(95, 95));
-        //imageCreator.drawTriangle(triangle);
-        //imageCreator.drawTriangleFilled(triangle);
         ObjScanner scanner = new ObjScanner();
         List<Vertex> vertexList = new ArrayList<>();
 		try {
