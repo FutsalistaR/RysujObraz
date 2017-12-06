@@ -42,8 +42,11 @@ public class Triangle {
 	}
 	
 	public BufferedImage drawFilled(BufferedImage img) {
-//		img = box.draw(img);
+		//img = box.draw(img);
 		img = fill(img);
+		img.setRGB(a.getX(), a.getY(), 0xff0000);
+		img.setRGB(b.getX(), b.getY(), 0xff0000);
+		img.setRGB(c.getX(), c.getY(), 0xff0000);
 		return img;
 	}
 	

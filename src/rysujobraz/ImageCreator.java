@@ -47,6 +47,19 @@ public class ImageCreator {
     	save(PATH, TRIANGLE_FILE_NAME);
     }
     
+    public void drawDeerTrianglesFilled(List<Vertex> vertex, List<F> fList) {
+    	for (F f : fList) {
+    		Point a = new Point(Math.round(vertex.get(f.getA()-1).getX()*width/2) + width/2, Math.round(vertex.get(f.getA()-1).getY()*height/2) + height/4);
+    		Point b = new Point(Math.round(vertex.get(f.getB()-1).getX()*width/2) + width/2, Math.round(vertex.get(f.getB()-1).getY()*height/2) + height/4);
+    		Point c = new Point(Math.round(vertex.get(f.getC()-1).getX()*width/2) + width/2, Math.round(vertex.get(f.getC()-1).getY()*height/2) + height/4);
+    		Triangle triangle = new Triangle(a, b, c);
+    		triangle.drawFilled(img);
+    	}
+    	
+    	flip_v();
+    	save(PATH, TRIANGLE_FILE_NAME);
+    }
+    
     public void drawTriangle(Triangle triangle) {
     	triangle.draw(img);
     	flip_v();
@@ -64,11 +77,11 @@ public class ImageCreator {
     }
     
     private void createDeerPoints(List<Vertex> vertexList) {
-    	for (int i = 0; i < vertexList.size(); i++) {
-            int x = Math.round(vertexList.get(i).getX()*100) + 100;
-            int y = Math.round(vertexList.get(i).getY()*100) + 100;
+    	for (Vertex v : vertexList) {
+    		int x = Math.round(v.getX()*width/2) + width/2;
+            int y = Math.round(v.getY()*height/2) + height/4;
             img.setRGB(x, y, 0x00ff00);
-        }
+    	}
     }
     
     private void save(String path, String fileName) {
