@@ -15,7 +15,7 @@ import java.util.List;
 public class RysujObraz {
 
     public static void main(String[] args) {
-        ImageCreator imageCreator = new ImageCreator(300, 300);
+        ImageCreator imageCreator = new ImageCreator(3000, 3000);
         ObjScanner scanner = new ObjScanner();
         List<Vertex> vertexList = new ArrayList<>();
 		try {
@@ -30,6 +30,12 @@ public class RysujObraz {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+//		Point a = new Point (10, 10);
+//		Point b = new Point(80, 20);
+//		Point c = new Point(60, 70);
+//		Triangle triangle = new Triangle(a, b, c);
+//		imageCreator.drawTriangle(triangle);
 		
         //imageCreator.drawDeerPoints(vertexList);
 		imageCreator.drawDeerTriangles(vertexList, fList);

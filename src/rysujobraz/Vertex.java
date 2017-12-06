@@ -11,31 +11,31 @@ package rysujobraz;
  */
 public class Vertex {
     
-    private double x;
-    private double y;
-    private double z;
-
-    public Vertex(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    @Override
-    public String toString() {
-        return "Vertex{" + "x=" + x + ", y=" + y + ", z=" + z + '}';
-    }
+    private float x;
+    private float y;
+    private float z;
     
+	public Vertex(float x, float y, float z) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+	
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+	
+	public float getZ() {
+		return z;
+	}
+	
+	@Override
+	public String toString() {
+		return "Vertex [x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
 }

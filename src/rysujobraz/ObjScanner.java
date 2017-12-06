@@ -56,7 +56,7 @@ public class ObjScanner {
     
     private Vertex getVertex(String line) {
         String[] tab = line.split(" ");
-        return new Vertex(Double.parseDouble(tab[1]), Double.parseDouble(tab[2]), Double.parseDouble(tab[3]));
+        return new Vertex(Float.parseFloat(tab[1]), Float.parseFloat(tab[2]), Float.parseFloat(tab[3]));
     }
 
     private F getF(String line) {
